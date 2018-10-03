@@ -11,15 +11,15 @@ type Job struct {
 	n int
 }
 
-// var threads := runtime.NumCPU()
+var threads = runtime.NumCPU()
 
-var threads = 8
+// var threads = 8
 var rands = make([]*rand.Rand, 0, threads)
 
 func init() {
 	fmt.Printf("cpus: %d\n", threads)
-	// runtime.GOMAXPROCS(threads)
-	runtime.GOMAXPROCS(2)
+	runtime.GOMAXPROCS(threads)
+	// runtime.GOMAXPROCS(2)
 
 	for i := 0; i < threads; i++ {
 		rands = append(rands, rand.New(rand.NewSource(time.Now().UnixNano())))
@@ -128,7 +128,7 @@ func PI(samples int) (result float64) {
 
 	result = ratio * 4
 
-	fmt.Printf("PI: %d times, value: %fr cost: %s\n", samples, result, time.Since(t1))
+	fmt.Printf("PI: %d times, value: %f, cost: %s\n", samples, result, time.Since(t1))
 
 	return
 }
